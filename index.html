@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Love Animation ❤️</title>
+  <style>
+    body {
+      margin: 0;
+      background: black;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      overflow: hidden;
+      color: white;
+      font-family: "Comic Sans MS", cursive, sans-serif;
+    }
+    canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+    h1 {
+      position: absolute;
+      bottom: 50px;
+      font-size: 48px;
+      text-shadow: 0 0 20px red;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="loveCanvas"></canvas>
+  <h1>I LOVE YOU ❤️</h1>
+
+  <script>
+    const canvas = document.getElementById("loveCanvas");
+    const ctx = canvas.getContext("2d");
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    let t = 0;
+
+    function drawHeart(scale) {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.fillStyle = "rgb(255, 0, 80)";
+      ctx.beginPath();
+      
+      for (let i = 0; i < Math.PI * 2; i += 0.01) {
+        let x = 16 * Math.pow(Math.sin(i), 3);
+        let y = 13 * Math.cos(i) - 5 * Math.cos(2 * i) - 2 * Math.cos(3 * i) - Math.cos(4 * i);
+
+        ctx.lineTo(
+          canvas.width / 2 + x * 20 * scale,
+          canvas.height / 2 - y * 20 * scale
+        );
+      }
+      ctx.closePath();
+      ctx.fill();
+    }
+
+    function animate() {
+      t += 0.05;
+      let scale = 1 + 0.1 * Math.sin(t * 2); // Efek hati berdenyut
+      drawHeart(scale);
+      requestAnimationFrame(animate);
+    }
+
+    animate();
+
+    // Responsif kalau jendela di-resize
+    window.addEventListener("resize", () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    });
+  </script>
+</body>
+</html>
